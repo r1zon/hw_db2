@@ -1,0 +1,36 @@
+{% extends "articles/base.html" %}
+{% load static %}
+
+{% block title %}Новости{% endblock %}
+{% block content %}
+<div class="row">
+  {% for article in object_list %}
+  <div class="col-lg-4 col-sm-6 portfolio-item">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="{% get_media_prefix %}{{ article.image }}" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">{{ article.title }}</a>
+          <a href="#">{{ article.articles }}</a>
+        </h4>
+        <p class="card-text">{{ article.text }}</p>
+        {% for scope in theme_list %}
+          {% if scope.article == article %}
+            {% if scope.is_main %}
+              <span class="badge badge-primary">{{ scope.theme }}</span>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% for scope in theme_list %}
+          {% if scope.article == article %}
+            {% if scope.is_main == False %}
+              <span class="badge badge-secondary">{{ scope.theme }}</span>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
